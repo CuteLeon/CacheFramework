@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheFramework.WinForm", "CacheFramework.WinForm\CacheFramework.WinForm.csproj", "{082C97A9-1088-42EC-97F3-9AF49D6697C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheFramework", "CacheFramework\CacheFramework.csproj", "{08959502-BE91-4B90-9EF8-DDFCC202A1CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{082C97A9-1088-42EC-97F3-9AF49D6697C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{082C97A9-1088-42EC-97F3-9AF49D6697C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{082C97A9-1088-42EC-97F3-9AF49D6697C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{082C97A9-1088-42EC-97F3-9AF49D6697C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08959502-BE91-4B90-9EF8-DDFCC202A1CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08959502-BE91-4B90-9EF8-DDFCC202A1CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08959502-BE91-4B90-9EF8-DDFCC202A1CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08959502-BE91-4B90-9EF8-DDFCC202A1CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A94762D6-57E8-4C61-8972-5183F644E484}
+	EndGlobalSection
+EndGlobal
