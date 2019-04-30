@@ -25,6 +25,90 @@
 - 缓存过期时机：手动释放、最后一次使用延时释放；
 - 封装于现行框架：不改变现行框架的外观和调用方式；
 
-### 方案：
+## 新缓存框架方案：
 
-​	在现行框架 XPSaver 和 XPCollectionAssist 方法内部调用懒加载缓存框架；
+### 独立框架方案：
+
+​	参考技术栈通用缓存框架；
+
+1. 框架增加懒加载类型容器；
+
+2. 声明缓存：缓存名称、加载策略（立即、延迟）、加载缓存委托（静态方法、全局接口、Manager）、上次更新时间、上次访问时间、过期策略（永不、手动、超时、超量）、过期超时阈值、过期超量阈值...
+
+3. 加载缓存：外部访问缓存自动调用懒加载函数；
+
+4. 读取缓存：使用类型、缓存名称、过滤条件...
+
+5. 释放缓存：使用类型、缓存名称
+
+6. 关闭缓存容器时释放所有缓存
+
+   需要开发新的框架、无法复用现有缓存框架的逻辑，难以解决与业务耦合的特殊逻辑；
+
+   需要修改缓存声明、读取的大量代码，对后续影响较大；
+
+**Demo:**
+
+```csharp
+// 懒加载缓存容器
+Dictionary<Type, Lazy<ICache>> cacheContainer = new Dictionary<Type, Lazy<ICache>>();
+
+// 注册懒加载缓存
+void RegistLazyCache<TXPO>(Action<ICache> lazyLoadAction)
+    where TXPO : XPDataSetObject
+{
+    Lazy<ICache> cache = new Lazy<ICache>(
+        () =>
+        {
+            var cacheCollection = CreateCacheCollection<XPIndex>();
+            lazyLoadAction(cacheCollection);
+            return cacheCollection;
+        }
+        , true);
+    cacheContainer.Add(typeof(XPIndex), cache);
+}
+
+// 创建缓存集合
+ICache CreateCacheCollection_(Type type)
+{
+    Type collectionType = typeof(XPCollectionList<>);
+    collectionType = collectionType.MakeGenericType(type);
+    ICache collectionContainer = Activator.CreateInstance(collectionType) as ICache;
+    return collectionContainer;
+}
+ICache<TXPO> CreateCacheCollection<TXPO>()
+    where TXPO : XPDataSetObject
+{
+    Type collectionType = typeof(XPCollectionList<>);
+    collectionType = collectionType.MakeGenericType(typeof(TXPO));
+    ICache<TXPO> collectionContainer = Activator.CreateInstance(collectionType) as ICache<TXPO>;
+    return collectionContainer;
+}
+
+// 注册一个缓存
+RegistLazyCache<XPIndex>((cache) => this._InitDataManager.GetIndex().ForEach(xpo => cache.Save(xpo)));
+```
+### 扩展现行框架方案：
+
+​	在 XPSaver 和 XPCollectionAssist 基础上扩展，为降低对现有缓存功能的影响，设定于在现有 XPSaver 和 XPCollectionAssist 中进行优先扩展，而不是修改；
+
+1. 增加懒加载缓存容器；
+2. 公开新的缓存注册接口，并改造功能性缓存的注册和加载代码；
+3. 修改缓存读取接口，以选择从现有缓存容器或懒加载缓存容器中返回数据；
+4. 内部方法尽量最大化现有 XPSaver 和 XPCollectionAssist 内的方法，减少重写与业务耦合的代码；
+
+### 两种方案比较：
+
+​	**独立方案**：
+
+​		能最大化和现有框架解耦；
+
+​		但无法复用与业务耦合的代码；
+
+​		存在迭代时被滥用的风险；
+
+​	**扩展现行框架方案**：
+
+​		代码混合；
+
+​		读取缓存时，外界无法感知懒加载容器；
