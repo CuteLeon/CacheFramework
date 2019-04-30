@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheFramework.WinForm", "C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CacheFramework", "CacheFramework\CacheFramework.csproj", "{08959502-BE91-4B90-9EF8-DDFCC202A1CA}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Document", "Document", "{8D51D08E-432E-4EE2-9218-5AD407CC31DC}"
+	ProjectSection(SolutionItems) = preProject
+		xIR 缓存框架扩展方案.md = xIR 缓存框架扩展方案.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
