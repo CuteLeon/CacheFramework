@@ -99,7 +99,7 @@ RegistLazyCache<XPIndex>((cache) => this._InitDataManager.GetIndex().ForEach(xpo
 
 ### 两种方案比较：
 
-​	**独立方案**：
+#### **独立方案**：
 
 ##### 		优点：
 
@@ -115,7 +115,7 @@ RegistLazyCache<XPIndex>((cache) => this._InitDataManager.GetIndex().ForEach(xpo
 
 ​			存在迭代时被滥用的风险；
 
-​	**扩展现行框架方案**：
+#### **扩展现行框架方案**：
 
 ##### 		优点：
 

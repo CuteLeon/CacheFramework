@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+
+using CacheFramework.CacheCollections;
+using CacheFramework.Models;
 
 namespace CacheFramework
 {
@@ -9,6 +10,15 @@ namespace CacheFramework
     {
         static void Main(string[] args)
         {
+            CacheCollectionFactory.RegistCache<CacheModel, Func<int, CacheModel[]>>(
+                CacheCollectionType.List,
+                CacheModelFactory.CreateModels,
+                6);
+
+            var cacheCollection = CacheCollectionFactory.GetCache<CacheModel>().GetCaches();
+
+            Console.WriteLine(string.Join("、", cacheCollection.Select(model => model.Name)));
+            Console.Read();
         }
     }
 }

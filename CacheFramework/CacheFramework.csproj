@@ -41,6 +41,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheCollections\CacheCollectionFactory.cs" />
+    <Compile Include="CacheCollections\CacheCollectionHashSet.cs" />
+    <Compile Include="CacheCollections\CacheCollectionList.cs" />
+    <Compile Include="CacheCollections\ICacheCollection.cs" />
+    <Compile Include="Models\CacheModel.cs" />
+    <Compile Include="Models\CacheModelFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
