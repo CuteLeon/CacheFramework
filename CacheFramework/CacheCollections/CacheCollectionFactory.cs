@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CacheFramework.CacheCollections
 {
@@ -63,6 +64,16 @@ namespace CacheFramework.CacheCollections
             {
                 throw new InvalidOperationException($"已经存在类型 {modelType.FullName} 的缓存集合，无法重复注册");
             }
+
+            var methodParams = func.Method.GetParameters();
+            int minParamCount = methodParams.Count(p => !p.IsOptional);
+            int maxParamCount = methodParams.Length;
+            if (args.Length < minParamCount || args.Length > maxParamCount)
+            {
+                throw new ArgumentException($"注册懒加载缓存类型 {modelType.Name} 使用的委托形式参数列表和实际参数列表数量不匹配");
+            }
+
+            // func.Method.ReturnType
 
             var cache = new Lazy<ICacheCollection>(() =>
             {
